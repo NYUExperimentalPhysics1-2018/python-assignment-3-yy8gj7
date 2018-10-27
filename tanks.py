@@ -112,12 +112,12 @@ def tankShot (targetBox, obstacleBox, x0, y0, v, theta, g = 9.8): #Finish This
     """
     x,y = trajectory(x0,y0,v,theta,9.8,1000)
     if firstInBox(x,y,obstacleBox) != -1:
-        endTrajectoryAtIntersection(x,y,obstacleBox)
-        
+        x,y=endTrajectoryAtIntersection(x,y,obstacleBox)
+        plt.plot()
+    elif firstInBox(x,y,targetBox) !=-1:
+        return 1
     else:
-        
-    
-    
+        return 0
 
 
 def drawBoard (tank1box, tank2box, obstacleBox, playerNum):
@@ -168,6 +168,10 @@ def oneTurn (tank1box, tank2box, obstacleBox, playerNum, g = 9.8):
     displays trajectory (shot originates from center of tank)
     returns 0 for miss, 1 or 2 for victory
     """        
+    plt.clf()
+    drawBoard(tank1box, tank2box, obstacleBox, playerNum)
+    v=getNumberInput("Enter desired velocity.",[0,np.Inf])
+    
 
     
 
