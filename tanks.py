@@ -171,7 +171,16 @@ def oneTurn (tank1box, tank2box, obstacleBox, playerNum, g = 9.8):
     plt.clf()
     drawBoard(tank1box, tank2box, obstacleBox, playerNum)
     v=getNumberInput("Enter desired velocity.",[0,np.Inf])
-    
+    theta=getNumberInput("Enter desired angle.", [0,361])
+    if playerNum==1:
+        result=tankShot(tank2box, obstacleBox, tank1box[0], tank1box[3], v, theta, 9.8)
+        if result==1:
+            return 1
+    if playerNum==2:
+        result=tankShot(tank2box, obstacleBox, tank2box[0], tank2box[3], v, theta, 9.8)
+        if result==1:
+            return 1
+    return 0
 
     
 
@@ -190,6 +199,21 @@ def playGame(tank1box, tank2box, obstacleBox, g = 9.8):
      g : float 
         accel due to gravity (default 9.8)
     """
+    playerNum=1
+    while True:
+        oneTurn(tank1box, tank2box, obstacleBox, playerNum, g = 9.8)
+        result = oneTurn(tank1box, tank2box, obstacleBox, playerNum, g = 9.8)
+        if result ==1:
+            print("Congratulations Player", playerNum, "!")
+            break
+        else:
+            playerNum=3-playerNum #Thanks Aashish!
+            x=0
+            while x<1:
+                y = getNumberInput("Press 3 to continue.", [-np.Inf, np.Inf])
+                if y==3:
+                    x+=2
+                
     
     
         
