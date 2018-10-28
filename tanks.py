@@ -83,7 +83,7 @@ def firstInBox (x,y,box):
 
     
 
-def tankShot (targetBox, obstacleBox, x0, y0, v, theta, g = 9.8): #Finish This
+def tankShot (targetBox, obstacleBox, x0, y0, v, theta, g = 9.8):
     """
     executes one tank shot
     
@@ -113,12 +113,16 @@ def tankShot (targetBox, obstacleBox, x0, y0, v, theta, g = 9.8): #Finish This
     x,y = trajectory(x0,y0,v,theta,9.8,1000)
     if firstInBox(x,y,obstacleBox) != -1:
         x,y=endTrajectoryAtIntersection(x,y,obstacleBox)
-        plt.plot()
+        plt.plot(x,y)
+        showWindow()
     elif firstInBox(x,y,targetBox) !=-1:
+        plt.plot(x,y)
+        showWindow()
         return 1
     else:
+        plt.plot(x,y)
+        showWindow()
         return 0
-
 
 def drawBoard (tank1box, tank2box, obstacleBox, playerNum):
     """
@@ -168,7 +172,6 @@ def oneTurn (tank1box, tank2box, obstacleBox, playerNum, g = 9.8):
     displays trajectory (shot originates from center of tank)
     returns 0 for miss, 1 or 2 for victory
     """        
-    plt.clf()
     drawBoard(tank1box, tank2box, obstacleBox, playerNum)
     v=getNumberInput("Enter desired velocity.",[0,np.Inf])
     theta=getNumberInput("Enter desired angle.", [0,361])
@@ -177,7 +180,7 @@ def oneTurn (tank1box, tank2box, obstacleBox, playerNum, g = 9.8):
         if result==1:
             return 1
     if playerNum==2:
-        result=tankShot(tank2box, obstacleBox, tank2box[0], tank2box[3], v, theta, 9.8)
+        result=tankShot(tank1box, obstacleBox, tank2box[0], tank2box[3], v, theta, 9.8)
         if result==1:
             return 1
     return 0
