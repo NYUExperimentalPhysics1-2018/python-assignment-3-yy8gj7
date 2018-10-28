@@ -47,8 +47,8 @@ def trajectory (x0,y0,v,theta,g = 9.8, npts = 1000):
     theta= np.deg2rad(theta)
     vx= v*np.cos(theta)
     vy= v*np.sin(theta)
-    tF= (vy/g)*np.sqrt((vy/g)**2*(2*y0/g))
-    Tint=np.linspace(0,tF)
+    tF= (vy/g)+np.sqrt(((vy/g)**2)*(2*y0/g))
+    Tint=np.linspace(0,tF+1)
     x= x0 + vx*Tint
     y= y0 + vy*Tint -.5*g*Tint**2
     
@@ -134,7 +134,7 @@ def drawBoard (tank1box, tank2box, obstacleBox, playerNum):
     playerNum : int
         1 or 2 -- who's turn it is to shoot
  
-    """    
+    """
     plt.clf()
     drawBox(tank1box,tank1Color)
     drawBox(tank2box,tank2Color)
@@ -201,7 +201,6 @@ def playGame(tank1box, tank2box, obstacleBox, g = 9.8):
     """
     playerNum=1
     while True:
-        oneTurn(tank1box, tank2box, obstacleBox, playerNum, g = 9.8)
         result = oneTurn(tank1box, tank2box, obstacleBox, playerNum, g = 9.8)
         if result ==1:
             print("Congratulations Player", playerNum, "!")
